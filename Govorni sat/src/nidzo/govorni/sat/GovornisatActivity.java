@@ -3,7 +3,6 @@ package nidzo.govorni.sat;
 import android.app.Activity;
 import android.text.format.Time;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.media.MediaPlayer;
 
 public class GovornisatActivity extends Activity {
@@ -17,12 +16,15 @@ public class GovornisatActivity extends Activity {
         int h=t.hour;
         int m=t.minute;    
         MediaPlayer i=MediaPlayer.create(this, R.raw.i);    
-        sati(12);
+        sati(h);
         i.start();
         cekaj();
-        minuti(31);
+        minuti(m);
         cekaj();
+        i.release();
+        System.runFinalizersOnExit(true);
         this.finish();
+        System.exit(0);
     }
     public void cekaj()
     {
@@ -49,6 +51,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==1)
     		{
@@ -57,6 +60,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sat.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==2)
     		{
@@ -65,6 +69,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sata.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==3)
     		{
@@ -73,6 +78,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sata.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==4)
     		{
@@ -81,6 +87,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sata.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==5)
     		{
@@ -89,6 +96,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==6)
     		{
@@ -97,6 +105,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==7)
     		{
@@ -105,6 +114,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==8)
     		{
@@ -113,6 +123,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==9)
     		{
@@ -121,6 +132,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     	}
     	if (h1==1)
@@ -132,6 +144,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==1)
     		{
@@ -140,6 +153,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==2)
     		{
@@ -148,6 +162,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==3)
     		{
@@ -156,6 +171,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==4)
     		{
@@ -164,6 +180,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==5)
     		{
@@ -172,6 +189,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==6)
     		{
@@ -180,6 +198,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==7)
     		{
@@ -188,6 +207,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==8)
     		{
@@ -196,6 +216,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==9)
     		{
@@ -204,6 +225,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     	}
     	if (h1==2)
@@ -215,6 +237,7 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sati.start();
     			cekaj();
+    			s.release();
     		}
     		if (h2==1)
     		{
@@ -226,6 +249,8 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sat.start();
     			cekaj();
+    			s1.release();
+    			s2.release();
     		}
     		if (h2==2)
     		{
@@ -237,6 +262,8 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sata.start();
     			cekaj();
+    			s2.release();
+    			s1.release();
     		}
     		if (h2==3)
     		{
@@ -248,8 +275,13 @@ public class GovornisatActivity extends Activity {
     			cekaj();
     			sata.start();
     			cekaj();
+    			s2.release();
+    			s1.release();
     		}
     	}
+    	sati.release();
+    	sat.release();
+    	sata.release();
     }
     public void minuti(int m)
     {
@@ -264,6 +296,7 @@ public class GovornisatActivity extends Activity {
     		cekaj();
     		minuta.start();
     		cekaj();
+    		mi.release();
         }
         if (m1==1)
         {
@@ -274,6 +307,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==1)
         	{
@@ -282,6 +316,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==2)
         	{
@@ -290,6 +325,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==3)
         	{
@@ -298,6 +334,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==4)
         	{
@@ -306,6 +343,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==5)
         	{
@@ -314,6 +352,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==6)
         	{
@@ -322,6 +361,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==7)
         	{
@@ -330,6 +370,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==8)
         	{
@@ -338,6 +379,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==9)
         	{
@@ -346,6 +388,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	
         }
@@ -361,6 +404,7 @@ public class GovornisatActivity extends Activity {
         			minuta.start();
         			cekaj();
         		}
+        		mi.release();
         	}
         	if (m1==3)
         	{
@@ -372,6 +416,7 @@ public class GovornisatActivity extends Activity {
         			minuta.start();
         			cekaj();
         		}
+        		mi.release();
         	}
         	if (m1==4)
         	{
@@ -383,6 +428,7 @@ public class GovornisatActivity extends Activity {
         			minuta.start();
         			cekaj();
         		}
+        		mi.release();
         	}
         	if (m1==5)
         	{
@@ -393,6 +439,7 @@ public class GovornisatActivity extends Activity {
         			minuta.start();
         			cekaj();
         		}
+        		mi.release();
         	}
         	if (m2==1)
         	{
@@ -401,6 +448,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minut.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==2)
         	{
@@ -409,6 +457,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==3)
         	{
@@ -417,6 +466,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==4)
         	{
@@ -425,6 +475,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==5)
         	{
@@ -433,6 +484,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==6)
         	{
@@ -441,6 +493,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==7)
         	{
@@ -449,6 +502,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==8)
         	{
@@ -457,6 +511,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==9)
         	{
@@ -465,6 +520,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         }
         if (m1==0 && m2>0)
@@ -476,6 +532,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minut.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==2)
         	{
@@ -484,6 +541,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==3)
         	{
@@ -492,6 +550,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==4)
         	{
@@ -500,6 +559,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==5)
         	{
@@ -508,6 +568,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==6)
         	{
@@ -516,6 +577,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==7)
         	{
@@ -524,6 +586,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==8)
         	{
@@ -532,6 +595,7 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         	if (m2==9)
         	{
@@ -540,7 +604,10 @@ public class GovornisatActivity extends Activity {
         		cekaj();
         		minuta.start();
         		cekaj();
+        		mi.release();
         	}
         }
+        minut.release();
+        minuta.release();
     }
 }
