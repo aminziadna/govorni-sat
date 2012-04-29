@@ -23,7 +23,6 @@ public class GovornisatActivity extends Activity {
         cekaj();
         i.release();
         System.runFinalizersOnExit(true);
-        this.finish();
         System.exit(0);
     }
     public void cekaj()
