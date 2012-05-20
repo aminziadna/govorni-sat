@@ -1,31 +1,42 @@
 package nidzo.govorni.sat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.text.format.Time;
 import android.os.Bundle;
 import android.media.MediaPlayer;
+import android.media.AudioManager;
 
 public class GovornisatActivity extends Activity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        Time t=new Time();
-        t.setToNow();
-        int h=t.hour;
-        int m=t.minute;    
-        MediaPlayer i=MediaPlayer.create(this, R.raw.i);    
+        //setContentView(R.layout.main);
+        AudioManager aManager=(AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume=aManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int userVolume=aManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        aManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+        Time currentTime=new Time();
+        currentTime.setToNow();
+        int h=currentTime.hour;
+        int m=currentTime.minute;
+        MediaPlayer reciI=MediaPlayer.create(this, R.raw.i);    
         sati(h);
-        i.start();
+        reciI.start();
         cekaj();
         minuti(m);
-        cekaj();
-        i.release();
-        System.runFinalizersOnExit(true);
-        System.exit(0);
+        reciI.release();
+        reciI=null;
+        aManager.setStreamVolume(AudioManager.STREAM_MUSIC, userVolume, 0);
+        this.finish();
     }
-    public void cekaj()
+    public void onDestroy()
+    {
+    	System.runFinalizersOnExit(true);
+    	System.exit(0);
+    }
+    public static void cekaj()
     {
         try {
 			Thread.sleep(1000);
@@ -36,577 +47,492 @@ public class GovornisatActivity extends Activity {
     }
     public void sati(int h)
     {
-    	MediaPlayer sat=MediaPlayer.create(this, R.raw.sat);
-        MediaPlayer sati=MediaPlayer.create(this, R.raw.sati);
-        MediaPlayer sata=MediaPlayer.create(this, R.raw.sata);
     	int h1=h/10;
     	int h2=h%10;
-    	if (h1==0)
+    	MediaPlayer reciBroj;
+    	MediaPlayer reciJedinicu;
+    	if (h1==1) //za brojeve čudnih imena 10-19
     	{
-    		if (h2==0)
+    		switch(h2)
     		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.nula);
-    			s.start();
+    		case 0:
+    			reciBroj=MediaPlayer.create(this, R.raw.deset);
+    			reciBroj.start();
     			cekaj();
-    			sati.start();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 1:
+    			reciBroj=MediaPlayer.create(this, R.raw.jedanaest);
+    			reciBroj.start();
     			cekaj();
-    			s.release();
+    			reciBroj.stop();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 2:
+    			reciBroj=MediaPlayer.create(this, R.raw.dvanaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 3:
+    			reciBroj=MediaPlayer.create(this, R.raw.trinaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 4:
+    			reciBroj=MediaPlayer.create(this, R.raw.cetrnaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 5:
+    			reciBroj=MediaPlayer.create(this, R.raw.petnaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 6:
+    			reciBroj=MediaPlayer.create(this, R.raw.sesnaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 7:
+    			reciBroj=MediaPlayer.create(this, R.raw.sedamnaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 8:
+    			reciBroj=MediaPlayer.create(this, R.raw.osamnaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
+    		case 9:
+    			reciBroj=MediaPlayer.create(this, R.raw.devetnaest);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciBroj=null;
+    			break;
     		}
-    		if (h2==1)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.jedan);
-    			s.start();
-    			cekaj();
-    			sat.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==2)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.dva);
-    			s.start();
-    			cekaj();
-    			sata.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==3)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.tri);
-    			s.start();
-    			cekaj();
-    			sata.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==4)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.cetiri);
-    			s.start();
-    			cekaj();
-    			sata.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==5)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.pet);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==6)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.sest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==7)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.sedam);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==8)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.osam);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==9)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.devet);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    	}
-    	if (h1==1)
-    	{
-    		if (h2==0)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.deset);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==1)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.jedanaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==2)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.dvanaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==3)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.trinaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==4)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.cetrnaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==5)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.petnaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==6)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.sesnaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==7)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.sedamnaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==8)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.osamnaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==9)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.devetnaest);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    	}
-    	if (h1==2)
-    	{
-    		if (h2==0)
-    		{
-    			MediaPlayer s=MediaPlayer.create(this, R.raw.dvadeset);
-    			s.start();
-    			cekaj();
-    			sati.start();
-    			cekaj();
-    			s.release();
-    		}
-    		if (h2==1)
-    		{
-    			MediaPlayer s1=MediaPlayer.create(this, R.raw.dvadeset);
-    			MediaPlayer s2=MediaPlayer.create(this, R.raw.jedan);
-    			s1.start();
-    			cekaj();
-    			s2.start();
-    			cekaj();
-    			sat.start();
-    			cekaj();
-    			s1.release();
-    			s2.release();
-    		}
-    		if (h2==2)
-    		{
-    			MediaPlayer s1=MediaPlayer.create(this, R.raw.dvadeset);
-    			MediaPlayer s2=MediaPlayer.create(this, R.raw.dva);
-    			s1.start();
-    			cekaj();
-    			s2.start();
-    			cekaj();
-    			sata.start();
-    			cekaj();
-    			s2.release();
-    			s1.release();
-    		}
-    		if (h2==3)
-    		{
-    			MediaPlayer s1=MediaPlayer.create(this, R.raw.dvadeset);
-    			MediaPlayer s2=MediaPlayer.create(this, R.raw.tri);
-    			s1.start();
-    			cekaj();
-    			s2.start();
-    			cekaj();
-    			sata.start();
-    			cekaj();
-    			s2.release();
-    			s1.release();
-    		}
-    	}
-    	sati.release();
-    	sat.release();
-    	sata.release();
-    }
-    public void minuti(int m)
-    {
-    	MediaPlayer minut=MediaPlayer.create(this, R.raw.minut);
-        MediaPlayer minuta=MediaPlayer.create(this, R.raw.minuta);
-        int m1=m/10;
-        int m2=m%10;
-        if (m1==0 && m2==0)
-        {
-        	MediaPlayer mi=MediaPlayer.create(this, R.raw.nula);
-    		mi.start();
+    		reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+    		reciJedinicu.start();
     		cekaj();
-    		minuta.start();
-    		cekaj();
-    		mi.release();
-        }
-        if (m1==1)
-        {
-        	if (m2==0)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.deset);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==1)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.jedanaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==2)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.dvanaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==3)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.trinaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==4)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.cetrnaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==5)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.petnaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==6)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.sesnaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==7)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.sedamnaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==8)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.osamnaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==9)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.devetnaest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	
-        }
-        if (m1>1)
-        {
-        	if (m1==2)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.dvadeset);
-        		mi.start();
-        		cekaj();
-        		if (m2==0)
-        		{
-        			minuta.start();
+    		reciJedinicu.release();
+    		reciJedinicu=null;
+    		return;
+    	}
+    	else //za brojeve sa logičnim imenima
+    	{
+    		switch(h1)
+    		{
+    		case 0:
+    			if (h2==0)
+    			{
+    				reciBroj=MediaPlayer.create(this, R.raw.nula); 
+    				reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+        			reciBroj.start();
+        			cekaj();		
+        			reciJedinicu.start();
         			cekaj();
-        		}
-        		mi.release();
-        	}
-        	if (m1==3)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.trideset);
-        		mi.start();
-        		cekaj();
-        		if (m2==0)
-        		{
-        			minuta.start();
-        			cekaj();
-        		}
-        		mi.release();
-        	}
-        	if (m1==4)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.cetrdeset);
-        		mi.start();
-        		cekaj();
-        		if (m2==0)
-        		{
-        			minuta.start();
-        			cekaj();
-        		}
-        		mi.release();
-        	}
-        	if (m1==5)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.pedeset);
-        		mi.start();
-        		cekaj();if (m2==0)
-        		{
-        			minuta.start();
-        			cekaj();
-        		}
-        		mi.release();
-        	}
-        	if (m2==1)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.jedan);
-        		mi.start();
-        		cekaj();
-        		minut.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==2)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.dva);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==3)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.tri);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==4)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.cetiri);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==5)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.pet);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==6)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.sest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==7)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.sedam);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==8)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.osam);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==9)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.devet);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        }
-        if (m1==0 && m2>0)
-        {
-        	if (m2==1)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.jedan);
-        		mi.start();
-        		cekaj();
-        		minut.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==2)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.dva);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==3)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.tri);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==4)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.cetiri);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==5)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.pet);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==6)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.sest);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==7)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.sedam);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==8)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.osam);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        	if (m2==9)
-        	{
-        		MediaPlayer mi=MediaPlayer.create(this, R.raw.devet);
-        		mi.start();
-        		cekaj();
-        		minuta.start();
-        		cekaj();
-        		mi.release();
-        	}
-        }
-        minut.release();
-        minuta.release();
-    }
+        			reciBroj.release();  
+        			reciJedinicu.release();
+        			reciBroj=null;  
+        			reciJedinicu=null;
+        			return;
+    			}
+    			break;
+    		case 2:
+    			reciBroj=MediaPlayer.create(this, R.raw.dvadeset);
+    			reciBroj.start();
+    			cekaj();
+    			reciBroj.reset();
+    			break;
+    		}
+    		switch(h2)
+    		{
+    		case 0:
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+    			reciJedinicu.start();
+    			cekaj();
+    			reciJedinicu.release();
+    			reciJedinicu=null;    			
+    			return;
+    		case 1:
+    			reciBroj=MediaPlayer.create(this, R.raw.jedan);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sat);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 2:
+    			reciBroj=MediaPlayer.create(this, R.raw.dva);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sata);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 3:
+    			reciBroj=MediaPlayer.create(this, R.raw.tri);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sata);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 4:
+    			reciBroj=MediaPlayer.create(this, R.raw.cetiri);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sata);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 5:
+    			reciBroj=MediaPlayer.create(this, R.raw.pet);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 6:
+    			reciBroj=MediaPlayer.create(this, R.raw.sest);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 7:
+    			reciBroj=MediaPlayer.create(this, R.raw.sedam);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 8:
+    			reciBroj=MediaPlayer.create(this, R.raw.osam);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		case 9:
+    			reciBroj=MediaPlayer.create(this, R.raw.devet);
+    			reciJedinicu=MediaPlayer.create(this, R.raw.sati);
+    			reciBroj.start();
+    			cekaj();
+    			reciJedinicu.start();
+    			cekaj();
+    			reciBroj.release();
+    			reciJedinicu.release();
+    			reciBroj=null;
+    			reciJedinicu=null;
+    			return;
+    		}
+		}
+   }
+   public void minuti(int m)
+   {
+   		int m1=m/10;
+   		int m2=m%10;
+   		MediaPlayer reciBroj;
+   		MediaPlayer reciJedinicu;
+   		if (m1==1) //za brojeve čudnih imena 10-19
+   		{
+   			switch(m2)
+   			{
+   			case 0:
+   				reciBroj=MediaPlayer.create(this, R.raw.deset);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 1:
+   				reciBroj=MediaPlayer.create(this, R.raw.jedanaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.stop();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 2:
+   				reciBroj=MediaPlayer.create(this, R.raw.dvanaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 3:
+   				reciBroj=MediaPlayer.create(this, R.raw.trinaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 4:
+   				reciBroj=MediaPlayer.create(this, R.raw.cetrnaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 5:
+   				reciBroj=MediaPlayer.create(this, R.raw.petnaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 6:
+   				reciBroj=MediaPlayer.create(this, R.raw.sesnaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 7:
+   				reciBroj=MediaPlayer.create(this, R.raw.sedamnaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 8:
+   				reciBroj=MediaPlayer.create(this, R.raw.osamnaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			case 9:
+   				reciBroj=MediaPlayer.create(this, R.raw.devetnaest);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciBroj=null;
+   				break;
+   			}
+   			reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   			reciJedinicu.start();
+   			cekaj();
+   			reciJedinicu.release();
+   			reciJedinicu=null;
+   			return;
+   		}
+   		else //za brojeve sa logičnim imenima
+   		{
+   			switch(m1)
+   			{
+   			case 0:
+   				if (m2==0)
+   				{
+   					reciBroj=MediaPlayer.create(this, R.raw.nula); 
+   					reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   					reciBroj.start();
+   					cekaj();		
+   					reciJedinicu.start();
+   					cekaj();
+   					reciBroj.release();  
+   					reciJedinicu.release();
+   					reciBroj=null;  
+   					reciJedinicu=null;
+   					return;
+   				}
+   				break;
+   			case 2:
+   				reciBroj=MediaPlayer.create(this, R.raw.dvadeset);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.reset();
+   				break;
+   			case 3:
+   				reciBroj=MediaPlayer.create(this, R.raw.trideset);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.reset();
+   				break;
+   			case 4:
+   				reciBroj=MediaPlayer.create(this, R.raw.cetrdeset);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.reset();
+   				break;
+   			case 5:
+   				reciBroj=MediaPlayer.create(this, R.raw.pedeset);
+   				reciBroj.start();
+   				cekaj();
+   				reciBroj.reset();
+   				break;
+   			}
+   			switch(m2)
+   			{
+   			case 0:
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciJedinicu.start();
+   				cekaj();
+   				reciJedinicu.release();
+   				reciJedinicu=null;    			
+   				return;
+   			case 1:
+   				reciBroj=MediaPlayer.create(this, R.raw.jedan);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minut);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 2:
+   				reciBroj=MediaPlayer.create(this, R.raw.dva);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 3:
+   				reciBroj=MediaPlayer.create(this, R.raw.tri);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 4:
+   				reciBroj=MediaPlayer.create(this, R.raw.cetiri);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 5:
+   				reciBroj=MediaPlayer.create(this, R.raw.pet);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 6:
+   				reciBroj=MediaPlayer.create(this, R.raw.sest);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 7:
+   				reciBroj=MediaPlayer.create(this, R.raw.sedam);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 8:
+   				reciBroj=MediaPlayer.create(this, R.raw.osam);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			case 9:
+   				reciBroj=MediaPlayer.create(this, R.raw.devet);
+   				reciJedinicu=MediaPlayer.create(this, R.raw.minuta);
+   				reciBroj.start();
+   				cekaj();
+   				reciJedinicu.start();
+   				cekaj();
+   				reciBroj.release();
+   				reciJedinicu.release();
+   				reciBroj=null;
+   				reciJedinicu=null;
+   				return;
+   			}
+   		}
+   	}
 }
